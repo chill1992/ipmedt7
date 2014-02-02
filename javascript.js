@@ -6,33 +6,45 @@
    			window.requestAnimationFrame = requestAnimationFrame;
 	 })();
 
+    //--inladen plaatjes--//
+    var achtergrond = new Image();
+    achtergrond.src = "images/bg.png";   
+
+    var happyplayer = new Image();
+    happyplayer.src = "images/happyplayer.png" 
+
+    var sadplayer = new Image();
+    sadplayer.src = "images/sadplayer.png" 
+
+    var scaredplayer = new Image();
+    scaredplayer.src = "images/scaredplayer.png" 
+
+   
     //--background canvas--//
     var bgcanvas = document.getElementById("bgcanvas"),
         bgctx = bgcanvas.getContext("2d"),
         width = 800,
         height = 600;
 
-    //--inladen achtergrond--//
-    var achtergrond = new Image();
-    achtergrond.src = "bg.png";    
-
+    //--startcanvas--//
+    var startcanvas = document.getElementById("startcanvas"),
+        startctx = startcanvas.getContext("2d"),
+        width = 800,
+        height = 600;
+   
     //--avatar canvas--//
 		var avcanvas = document.getElementById("avcanvas"),
         avctx = avcanvas.getContext("2d"),
   			width = 800,
    			height = 600,
    			player = {
-   	 		x : width/2,
+          x : (width/2),
    	   		y : height*(9/10),
-  	    	width : 5,
-  	   		height : 5,
-          speed: 1,
+          width : 85,
+          height : 274,
+          speed: 3,
           velX: 0,
-          velY: 0,
-          draw: function() {
-            
-            canvas.fillRect(this.x, this.y, this.width, this.height);
-          }
+          velY: 0
   	 		},
         keys = [],
         friction = 0.8;
@@ -42,6 +54,8 @@
 		avcanvas.height = height;
     bgcanvas.width = width;
     bgcanvas.height = height;
+    startcanvas.width = width;
+    startcanvas.height = height;
 
  
     //--speler laten bewegen dmv pijltjestoetsen--//
@@ -77,14 +91,19 @@
           }
         }
 
+        if (keys[32]) {
+          //--spatiebalk--//
+          console.log("SPATIE");
+        }
+
       player.velX *= friction;
       player.velY *= friction;
       player.x += player.velX;
       player.y += player.velY;
 
-      if (player.x >= width-player.width) 
+      if (player.x >= width-(player.width)) 
       {
-        player.x = width-player.width;
+        player.x = width-(player.width);
       } 
       else if (player.x <= 0) 
       {
@@ -95,16 +114,14 @@
       {
         player.y = height-player.height;
       } 
-      else if (player.y <= height/2 + height/10) 
+      else if (player.y <= height/6) 
       {
-        player.y = height/2 + height/10;
+        player.y = height/6;
       }
 
-      //--teken rood vierkant--//
+       //--teken speler--//
       avctx.clearRect(0,0,width,height);
-      avctx.fillStyle = "red";
-      avctx.fillRect(player.x, player.y, player.width, player.height);
-      //--update tekenen--//
+      avctx.drawImage(happyplayer, player.x, player.y, player.width, player.height);
       requestAnimationFrame(update);
     }
 
@@ -112,22 +129,22 @@
     function loadBg(){
       clearBg();
       bgctx.drawImage(achtergrond,0,0,800,600,0,0,800,600);
-      console.log("YOLOLO");
     }
 
     //--achtergrond leegmaken--//
     function clearBg(){
       bgctx.clearRect(0,0,800,600);
-      console.log("pleaserespond");
     }
 
   //--eventlistener koppelen aan toetsen--//
   document.body.addEventListener("keydown", function(e) {
     keys[e.keyCode] = true;
+    e.preventDefault();
   });
  
   document.body.addEventListener("keyup", function(e) {
     keys[e.keyCode] = false;
+    e.preventDefault();
   });
 
   //--eventlistener koppelen aan het in te laden scherm--//

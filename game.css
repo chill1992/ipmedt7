@@ -20,6 +20,12 @@ body {
 
 #bgcanvas {
 
-	background-color: transparent;
+	position: absolute;
+
+}
+
+#startcanvas {
+
+	position: absolute;
 
 }
