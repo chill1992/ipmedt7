@@ -20,13 +20,14 @@
     var scaredplayer = new Image();
     scaredplayer.src = "images/scaredplayer.png";
 
-    //--inladen verschillende schermen--//
+    //--inladen opstartschermen--//
     var startscreen = new Image();
     startscreen.src = "images/startscreen.png";
 
     var instructions = new Image();
     instructions.src = "images/instructions.png"; 
 
+    //--inladen vraagschermen--//
     var laptopscherm = new Image();
     laptopscherm.src = "images/laptopscherm.png";
 
@@ -60,12 +61,14 @@
     var laptopscherm9a = new Image();
     laptopscherm9a.src = "images/laptopscherm9a.png";
 
+    //--inladen afleidingschermen--//
     var afleiding1 = new Image();
     afleiding1.src = "images/afleiding1.png";
 
     var afleiding2 = new Image();
     afleiding2.src = "images/afleiding2.png";
 
+    //--inladen hintschermen--//
     var hint1 = new Image();
     hint1.src = "images/tips1.png";
 
@@ -77,6 +80,13 @@
    
     var hint4 = new Image();
     hint4.src = "images/tips4.png";
+
+    //--inladen eindschermen--//
+    var goedEinde = new Image();
+    goedEinde.src = "images/goedeinde.png";
+
+    var slechtEinde = new Image();
+    slechtEinde.src = "images/slechteinde.png";
 
     //--background canvas--//
     var bgcanvas = document.getElementById("bgcanvas"),
@@ -230,6 +240,7 @@
                 pc1gedaan = true;
                 spelspeelbaar = 1;
                 raamaan = true;
+                vraagaan = 0;
               }
 
               //--tweede set vragen--//
@@ -260,6 +271,7 @@
                 pc2gedaan = true;
                 spelspeelbaar = 1;
                 eindegoed = true;
+                vraagaan = 0;
               }
               if (vraagnummer ===12 && eindscore === 0) {
                 clearQ();
@@ -267,6 +279,7 @@
                 pc2gedaan = true;
                 spelspeelbaar = 1;
                 eindeslecht = true;
+                vraagaan = 0;
               }
               vraagnummer++;
             }
@@ -282,6 +295,7 @@
                 spelspeelbaar = 1;
                 afleidingaan = 0;
                 raamaan = false;
+                vraagaan = 0;
               }
               afleidingsnummer++;
             }
@@ -300,6 +314,7 @@
                 clearQ();
                 drawQ6();
                 vraagnummer = 6;
+                eindscore++;
               }
               if (vraagnummer ===2) {
                 clearQ();
@@ -329,6 +344,7 @@
                 if (raamaan === true) {
                   spelspeelbaar = 0;
                   afleidingaan = 1;
+                  vraagaan = 1;
                   clearQ();
                   drawDist();
                 }
@@ -339,11 +355,12 @@
                 
                if (eindeslecht === true) {
                   spelspeelbaar = 0;
-                  
+                  drawBadEnd(); 
                 }
 
                if (eindegoed === true) {
                   spelspeelbaar = 0;
+                  drawGoodEnd();
                 } 
               }
 
@@ -537,6 +554,15 @@
 
     function drawDist2(){
       vrgctx.drawImage(afleiding2,0,0,800,600,0,0,800,600);
+    }
+
+    //--eindes tekenen--//
+    function drawGoodEnd(){
+      startctx.drawImage(goedEinde,0,0,800,600,0,0,800,600);
+    }
+
+    function drawBadEnd(){
+      startctx.drawImage(slechtEinde,0,0,800,600,0,0,800,600);
     }
 
   //--eventlistener koppelen aan toetsen--//
