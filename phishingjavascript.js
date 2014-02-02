@@ -8,85 +8,85 @@
 
     //--inladen achtergrond--//
     var achtergrond = new Image();
-    achtergrond.src = "images/bg.png";  
+    achtergrond.src = "imagesp/bg.png";  
 
     //--inladen speler-plaatjes--//
     var happyplayer = new Image();
-    happyplayer.src = "images/happyplayer.png"; 
+    happyplayer.src = "imagesp/happyplayer.png"; 
 
     var sadplayer = new Image();
-    sadplayer.src = "images/sadplayer.png"; 
+    sadplayer.src = "imagesp/sadplayer.png"; 
 
     var scaredplayer = new Image();
-    scaredplayer.src = "images/scaredplayer.png";
+    scaredplayer.src = "imagesp/scaredplayer.png";
 
     //--inladen opstartschermen--//
     var startscreen = new Image();
-    startscreen.src = "images/startscreen.png";
+    startscreen.src = "imagesp/startscreen.png";
 
     var instructions = new Image();
-    instructions.src = "images/instructions.png"; 
+    instructions.src = "imagesp/instructions.png"; 
 
     //--inladen vraagschermen--//
     var laptopscherm = new Image();
-    laptopscherm.src = "images/laptopscherm.png";
+    laptopscherm.src = "imagesp/laptopscherm.png";
 
     var laptopscherm2 = new Image();
-    laptopscherm2.src = "images/laptopscherm2.png";
+    laptopscherm2.src = "imagesp/laptopscherm2.png";
 
     var laptopscherm3 = new Image();
-    laptopscherm3.src = "images/laptopscherm3.png";
+    laptopscherm3.src = "imagesp/laptopscherm3.png";
 
     var laptopscherm4 = new Image();
-    laptopscherm4.src = "images/laptopscherm4.png";
+    laptopscherm4.src = "imagesp/laptopscherm4.png";
 
     var laptopscherm4a = new Image();
-    laptopscherm4a.src = "images/laptopscherm4a.png";
+    laptopscherm4a.src = "imagesp/laptopscherm4a.png";
 
     var laptopscherm5 = new Image();
-    laptopscherm5.src = "images/laptopscherm5.png";
+    laptopscherm5.src = "imagesp/laptopscherm5.png";
 
     var laptopscherm6 = new Image();
-    laptopscherm6.src = "images/laptopscherm6.png";
+    laptopscherm6.src = "imagesp/laptopscherm6.png";
 
     var laptopscherm7 = new Image();
-    laptopscherm7.src = "images/laptopscherm7.png";
+    laptopscherm7.src = "imagesp/laptopscherm7.png";
 
     var laptopscherm8 = new Image();
-    laptopscherm8.src = "images/laptopscherm8.png";
+    laptopscherm8.src = "imagesp/laptopscherm8.png";
 
     var laptopscherm9 = new Image();
-    laptopscherm9.src = "images/laptopscherm9.png";
+    laptopscherm9.src = "imagesp/laptopscherm9.png";
 
     var laptopscherm9a = new Image();
-    laptopscherm9a.src = "images/laptopscherm9a.png";
+    laptopscherm9a.src = "imagesp/laptopscherm9a.png";
 
     //--inladen afleidingschermen--//
     var afleiding1 = new Image();
-    afleiding1.src = "images/afleiding1.png";
+    afleiding1.src = "imagesp/afleiding1.png";
 
     var afleiding2 = new Image();
-    afleiding2.src = "images/afleiding2.png";
+    afleiding2.src = "imagesp/afleiding2.png";
 
     //--inladen hintschermen--//
     var hint1 = new Image();
-    hint1.src = "images/tips1.png";
+    hint1.src = "imagesp/tips1.png";
 
     var hint2 = new Image();
-    hint2.src = "images/tips2.png";
+    hint2.src = "imagesp/tips2.png";
 
     var hint3 = new Image();
-    hint3.src = "images/tips3.png";
+    hint3.src = "imagesp/tips3.png";
    
     var hint4 = new Image();
-    hint4.src = "images/tips4.png";
+    hint4.src = "imagesp/tips4.png";
 
     //--inladen eindschermen--//
     var goedEinde = new Image();
-    goedEinde.src = "images/goedeinde.png";
+    goedEinde.src = "imagesp/goedeinde.png";
 
     var slechtEinde = new Image();
-    slechtEinde.src = "images/slechteinde.png";
+    slechtEinde.src = "imagesp/slechteinde.png";
 
     //--background canvas--//
     var bgcanvas = document.getElementById("bgcanvas"),
