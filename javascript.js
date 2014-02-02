@@ -6,10 +6,11 @@
    			window.requestAnimationFrame = requestAnimationFrame;
 	 })();
 
-    //--inladen plaatjes--//
+    //--inladen achtergrond--//
     var achtergrond = new Image();
-    achtergrond.src = "images/bg.png";   
+    achtergrond.src = "images/bg.png";  
 
+    //--inladen speler-plaatjes--//
     var happyplayer = new Image();
     happyplayer.src = "images/happyplayer.png"; 
 
@@ -36,10 +37,31 @@
 
     var laptopscherm4 = new Image();
     laptopscherm4.src = "images/laptopscherm4.png";
+
+    var laptopscherm5 = new Image();
+    laptopscherm5.src = "images/laptopscherm5.png";
+
+    var laptopscherm6 = new Image();
+    laptopscherm6.src = "images/laptopscherm6.png";
+
+    var afleiding1 = new Image();
+    afleiding1.src = "images/afleiding1.png";
+
+    var hint1 = new Image();
+    hint1.src = "images/tips1.png";
+
+    var hint2 = new Image();
+    hint2.src = "images/tips2.png";
    
     //--background canvas--//
     var bgcanvas = document.getElementById("bgcanvas"),
         bgctx = bgcanvas.getContext("2d"),
+        width = 800,
+        height = 600;
+
+    //--hint canvas--//
+    var hintcanvas = document.getElementById("hintcanvas"),
+        hintctx = hintcanvas.getContext("2d"),
         width = 800,
         height = 600;
 
@@ -59,7 +81,11 @@
     //--vraag variabelen--//
     var preloaded = 1;
     var vraagaan = 0;
+    var afleidingaan = 0;
+    var pc1gedaan = false;
     var vraagnummer = 1;
+    var afleidingsnummer = 1;
+    var raamaan = false;
     var keypressed = false;
    
     //--avatar canvas--//
@@ -92,6 +118,8 @@
     startcanvas.height = height;
     vraagcanvas.width = width;
     vraagcanvas.height = height;
+    hintcanvas.width = width;
+    hintcanvas.height = height;
 
  
     //--speler laten bewegen dmv pijltjestoetsen--//
@@ -135,27 +163,56 @@
          }
         }
 
+      //--overige toetsen toewijzen--//  
+
         if (keys[74]) {
           //--J-knop--//
           if (!keypressed ) {
             keypressed = true;
+
+            //--in het geval van vragen, doe onderstaande acties--//
             if (vraagaan ===1) {
               console.log("JA")
               if (vraagnummer ===1) {
                 clearQ();
                 drawQ2();
-                console.log(vraagnummer, "fuck");
               }
               if (vraagnummer ===2) {
                 clearQ();
                 drawQ3();
-                console.log(vraagnummer, "yeah");
+                score--;
               }
               if (vraagnummer ===3) {
                 clearQ();
                 drawQ4();
+                score--;
+              }
+              if (vraagnummer ===4) {
+                clearQ();
+                drawQ5();
+              }
+              if (vraagnummer ===5) {
+                clearQ();
+                drawQ6();
+              }
+              if (vraagnummer ===6) {
+                clearQ();
+                pc1gedaan = true;
+                spelspeelbaar = 1;
+                raamaan = true;
               }
               vraagnummer++;
+              console.log("score", score, "eindscore", eindscore);
+            }
+
+            //--in geval van afleiding, doe onderstaande acties--//
+            if (afleidingaan ===1){
+              if (afleidingsnummer ===1) {
+                clearQ();
+                spelspeelbaar = 1;
+                afleidingaan = 0;
+                raamaan = false;
+              }
             }
           } 
         }
@@ -164,44 +221,72 @@
           //--N-knop--//
           if (!keypressed ) {
             keypressed = true;
+
+            //--in geval van vragen, doe onderstaande acties--//
             if (vraagaan ===1) {
              console.log("NEE")
               if (vraagnummer ===1) {
                 clearQ();
-                drawQ4();
-                vraagnummer = 4;
+                drawQ6();
+                vraagnummer = 6;
+                eindscore = eindscore+1;
               }
               if (vraagnummer ===2) {
                 clearQ();
-                drawQ4();
-                vraagnummer = 4;
+                drawQ6();
+                vraagnummer = 6;
+                eindscore = eindscore+3;
               }
               if (vraagnummer ===3) {
                 clearQ();
-                drawQ4();
-                vraagnummer = 4;
+                drawQ6();
+                vraagnummer = 6;
+                eindscore = eindscore+1;
               }
+
+              console.log("score", score, "eindscore", eindscore);
+            }
+
+            //--in geval van afleiding, doe onderstaande acties--//
+            if (afleidingaan ===1){
+              
             }
           } 
         }
 
         if (keys[32]) {
           //--spatiebalk--//
-           if (spelspeelbaar === 1) {
-            console.log("Speler x ", player.x, "Speler y ", player.y);
-            //--interactie raam--//
-            if (player.x > 280 && player.x < 450 && player.y >= 100 && player.y <=125) {
-              console.log("KIJK EEN MUS");
-              clearQ();
-            }
-            //--interactie laptop--//
-            if (player.x > 596 && player.x < 700 && player.y >= 138 && player.y <=190) {
-              console.log("Laptop jonguh!");
-              spelspeelbaar = 0;
-              vraagaan = 1;
-              clearQ();
-              drawQ();
+           if (!keypressed) {
+            keypressed = true;
+            if (spelspeelbaar === 1) {
+             console.log("Speler x ", player.x, "Speler y ", player.y);
+              //--interactie raam--//
+              if (player.x > 280 && player.x < 450 && player.y >= 100 && player.y <=125) {
+                
+                if (raamaan === true) {
+                  spelspeelbaar = 0;
+                  afleidingaan = 1;
+                  clearQ();
+                  drawDist();
+                }
+                
+              }
+              //--interactie laptop--//
+              if (player.x > 596 && player.x < 700 && player.y >= 138 && player.y <=190) {
+                spelspeelbaar = 0;
+                vraagaan = 1;
 
+                //--eerste set vragen--//
+                if (pc1gedaan === false) {
+                  clearQ();
+                  drawQ();
+                }
+                //--tweede set vragen--//
+                if (pc1gedaan === true) {
+                  spelspeelbaar = 1;
+                  console.log("eerste set voltooid");
+                }
+              }  
             }
           }
         }
@@ -218,6 +303,14 @@
               clearIns();
             } 
             preloaded++; 
+          }  
+        }
+
+        if (keys[80]) {
+          //--score toets voor debug doeleinden--//
+          if (!keypressed) {
+            keypressed = true;
+            console.log("moodindex", score, "eindscore", eindscore);
           }  
         }
 
@@ -245,18 +338,29 @@
         player.y = height/6;
       }
 
-       //--teken speler afhankelijk van score--//
+      //--teken instructies--//
+      hintctx.clearRect(0,0,width,height);
+      if (spelspeelbaar ===1) {
+       if (vraagnummer === 1) {
+          hintctx.drawImage(hint1,0,0,800,600,0,0,800,600);
+       }
+       if (vraagnummer === 7) {
+          hintctx.drawImage(hint2,0,0,800,600,0,0,800,600);
+       }
+      } 
+
+      //--teken speler afhankelijk van score--//
       avctx.clearRect(0,0,width,height);
       //--teken bange speler als score slecht is--//
-      if (score < -10) {
+      if (score < -4) {
         avctx.drawImage(scaredplayer, player.x, player.y, 139, player.height);
       } 
       //--teken zorgelijke speler als score gemiddeld is--//
-      if (score <= -5 && score > -10) {
+      if (score <= -2 && score > -4) {
         avctx.drawImage(sadplayer, player.x, player.y, player.width, player.height);        
       } 
       //--teken vrolijke speler als score goed is--//
-      if (score <=0 && score > -5) {
+      if (score <=0 && score > -2) {
         avctx.drawImage(happyplayer, player.x, player.y, player.width, player.height);
       }  
       requestAnimationFrame(update);
@@ -297,7 +401,7 @@
       vrgctx.clearRect(0,0,800,600);
     }
 
-    //--vragen etc tekenen--//
+    //--vragen tekenen--//
     function drawQ(){
       vrgctx.drawImage(laptopscherm,0,0,800,600,0,0,800,600);
     }
@@ -313,6 +417,18 @@
 
     function drawQ4(){
       vrgctx.drawImage(laptopscherm4,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ5(){
+      vrgctx.drawImage(laptopscherm5,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ6(){
+      vrgctx.drawImage(laptopscherm6,0,0,800,600,0,0,800,600);
+    }
+
+    function drawDist(){
+      vrgctx.drawImage(afleiding1,0,0,800,600,0,0,800,600);
     }
 
   //--eventlistener koppelen aan toetsen--//
