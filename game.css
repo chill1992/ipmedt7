@@ -1,0 +1,26 @@
+body {
+
+	background-color:#ffffff;
+
+	width: 800px;
+
+	margin-left: 	auto;
+	margin-right: 	auto;
+
+	position: relative;
+
+}
+
+#cvbg {
+
+	background-color: #f0f0f0;
+
+	position: absolute;
+
+}
+
+#cvplayer{
+
+	position: absolute;
+
+}
