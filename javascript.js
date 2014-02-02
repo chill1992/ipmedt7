@@ -11,13 +11,16 @@
     achtergrond.src = "images/bg.png";   
 
     var happyplayer = new Image();
-    happyplayer.src = "images/happyplayer.png" 
+    happyplayer.src = "images/happyplayer.png"; 
 
     var sadplayer = new Image();
-    sadplayer.src = "images/sadplayer.png" 
+    sadplayer.src = "images/sadplayer.png"; 
 
     var scaredplayer = new Image();
-    scaredplayer.src = "images/scaredplayer.png" 
+    scaredplayer.src = "images/scaredplayer.png";
+
+    var startscreen = new Image();
+    startscreen.src = "images/startscreen.png"; 
 
    
     //--background canvas--//
@@ -31,23 +34,26 @@
         startctx = startcanvas.getContext("2d"),
         width = 800,
         height = 600;
+    var spelgestart = 0;
    
     //--avatar canvas--//
 		var avcanvas = document.getElementById("avcanvas"),
         avctx = avcanvas.getContext("2d"),
   			width = 800,
    			height = 600,
-   			player = {
+        keys = [],
+        friction = 0.8;
+
+    //--avatar variabelen--//
+    var player = {
           x : (width/2),
-   	   		y : height*(9/10),
+          y : height*(9/10),
           width : 85,
           height : 274,
           speed: 3,
           velX: 0,
           velY: 0
-  	 		},
-        keys = [],
-        friction = 0.8;
+        };
 
     //--geef canvas correcte grootte mee--//
 		avcanvas.width = width;
@@ -65,35 +71,53 @@
 
         if (keys[38]) {
         //--pijltje naar boven--//
-        if (player.velY > -player.speed) {                         
-          player.velY--;                  
-          } 
+        if (spelgestart === 1) {
+          if (player.velY > -player.speed) {                         
+           player.velY--;                  
+           } 
+         }
         }
 
         if (keys[40]) {
         //--pijltje naar beneden--//
-        if (player.velY < player.speed) {                         
-          player.velY++;                  
-          } 
-        }
+        if (spelgestart === 1) {
+          if (player.velY < player.speed) {                         
+            player.velY++;                  
+           } 
+         }
+       }
 
         if (keys[39]) {
           //--pijltje naar rechts--//
-          if (player.velX < player.speed) {                         
-          player.velX++;                  
-          }          
-        } 
+          if (spelgestart === 1) {
+            if (player.velX < player.speed) {                         
+            player.velX++;                  
+            }          
+          } 
+        }
 
         if (keys[37]) {                 
           //--pijltje naar links--//                 
-          if (player.velX > -player.speed) {
-          player.velX--;
-          }
+          if (spelgestart === 1) {
+           if (player.velX > -player.speed) {
+            player.velX--;
+            }
+         }
         }
 
         if (keys[32]) {
           //--spatiebalk--//
-          console.log("SPATIE");
+           if (spelgestart === 1) {
+            console.log("Speler x ", player.x, "Speler y ", player.y);
+            if (player.x > 280 && player.x < 450 && player.y >= 100 && player.y <=125) {
+              console.log("KIJK EEN MUS");
+            }
+          }
+        }
+
+        if (keys[13]) {
+          //--enter toets--//
+          clearPre();
         }
 
       player.velX *= friction;
@@ -125,6 +149,20 @@
       requestAnimationFrame(update);
     }
 
+    //--prescreen inladen--//
+    function loadPre(){
+      startctx.drawImage(startscreen,0,0,800,600,0,0,800,600);
+
+    }
+
+    //--prescreen verwijderen--//
+    function clearPre(){
+      startctx.clearRect(0,0,800,600);
+      spelgestart = 1;
+      console.log("WOLLAH");
+      console.log(spelgestart);
+    }
+
     //--achtergrond in laten laden ingame--//
     function loadBg(){
       clearBg();
@@ -149,6 +187,7 @@
 
   //--eventlistener koppelen aan het in te laden scherm--//
   window.addEventListener("load", function(){
+    loadPre();
     update();
     loadBg();
   });
