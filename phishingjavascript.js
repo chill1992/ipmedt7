@@ -20,6 +20,7 @@
     var scaredplayer = new Image();
     scaredplayer.src = "images/scaredplayer.png";
 
+    //--inladen verschillende schermen--//
     var startscreen = new Image();
     startscreen.src = "images/startscreen.png";
 
@@ -38,21 +39,45 @@
     var laptopscherm4 = new Image();
     laptopscherm4.src = "images/laptopscherm4.png";
 
+    var laptopscherm4a = new Image();
+    laptopscherm4a.src = "images/laptopscherm4a.png";
+
     var laptopscherm5 = new Image();
     laptopscherm5.src = "images/laptopscherm5.png";
 
     var laptopscherm6 = new Image();
     laptopscherm6.src = "images/laptopscherm6.png";
 
+    var laptopscherm7 = new Image();
+    laptopscherm7.src = "images/laptopscherm7.png";
+
+    var laptopscherm8 = new Image();
+    laptopscherm8.src = "images/laptopscherm8.png";
+
+    var laptopscherm9 = new Image();
+    laptopscherm9.src = "images/laptopscherm9.png";
+
+    var laptopscherm9a = new Image();
+    laptopscherm9a.src = "images/laptopscherm9a.png";
+
     var afleiding1 = new Image();
     afleiding1.src = "images/afleiding1.png";
+
+    var afleiding2 = new Image();
+    afleiding2.src = "images/afleiding2.png";
 
     var hint1 = new Image();
     hint1.src = "images/tips1.png";
 
     var hint2 = new Image();
     hint2.src = "images/tips2.png";
+
+    var hint3 = new Image();
+    hint3.src = "images/tips3.png";
    
+    var hint4 = new Image();
+    hint4.src = "images/tips4.png";
+
     //--background canvas--//
     var bgcanvas = document.getElementById("bgcanvas"),
         bgctx = bgcanvas.getContext("2d"),
@@ -83,10 +108,13 @@
     var vraagaan = 0;
     var afleidingaan = 0;
     var pc1gedaan = false;
+    var pc2gedaan = false;
     var vraagnummer = 1;
     var afleidingsnummer = 1;
     var raamaan = false;
     var keypressed = false;
+    var eindegoed = false;
+    var eindeslecht = false;
    
     //--avatar canvas--//
 		var avcanvas = document.getElementById("avcanvas"),
@@ -173,6 +201,8 @@
             //--in het geval van vragen, doe onderstaande acties--//
             if (vraagaan ===1) {
               console.log("JA")
+
+              //--eerste set vragen--//
               if (vraagnummer ===1) {
                 clearQ();
                 drawQ2();
@@ -201,18 +231,59 @@
                 spelspeelbaar = 1;
                 raamaan = true;
               }
+
+              //--tweede set vragen--//
+              if (vraagnummer ===9) {
+                clearQ();
+                drawQ8();
+              }
+              if (vraagnummer ===10 && eindscore > 0) {
+                clearQ();
+                drawQ4();
+              }
+              if (vraagnummer ===10 && eindscore === 0) {
+                clearQ();
+                drawQ4a();
+                score--;
+              }
+              if (vraagnummer ===11 && eindscore > 0) {
+                clearQ();
+                drawQ9();
+              }
+              if (vraagnummer ===11 && eindscore === 0) {
+                clearQ();
+                drawQ9a();
+                score--;
+              }
+              if (vraagnummer ===12 && eindscore > 0) {
+                clearQ();
+                pc2gedaan = true;
+                spelspeelbaar = 1;
+                eindegoed = true;
+              }
+              if (vraagnummer ===12 && eindscore === 0) {
+                clearQ();
+                score--;
+                pc2gedaan = true;
+                spelspeelbaar = 1;
+                eindeslecht = true;
+              }
               vraagnummer++;
-              console.log("score", score, "eindscore", eindscore);
             }
 
             //--in geval van afleiding, doe onderstaande acties--//
             if (afleidingaan ===1){
               if (afleidingsnummer ===1) {
                 clearQ();
+                drawDist2();
+              }
+              if (afleidingsnummer ===2) {
+                clearQ();
                 spelspeelbaar = 1;
                 afleidingaan = 0;
                 raamaan = false;
               }
+              afleidingsnummer++;
             }
           } 
         }
@@ -229,27 +300,19 @@
                 clearQ();
                 drawQ6();
                 vraagnummer = 6;
-                eindscore = eindscore+1;
               }
               if (vraagnummer ===2) {
                 clearQ();
                 drawQ6();
                 vraagnummer = 6;
-                eindscore = eindscore+3;
+                eindscore++;
               }
               if (vraagnummer ===3) {
                 clearQ();
                 drawQ6();
                 vraagnummer = 6;
-                eindscore = eindscore+1;
+                eindscore++;
               }
-
-              console.log("score", score, "eindscore", eindscore);
-            }
-
-            //--in geval van afleiding, doe onderstaande acties--//
-            if (afleidingaan ===1){
-              
             }
           } 
         }
@@ -269,22 +332,37 @@
                   clearQ();
                   drawDist();
                 }
-                
               }
+
+              //--interactie deur--//
+              if (player.x > 20 && player.x < 105 && player.y >= 100 && player.y <=135) {
+                
+               if (eindeslecht === true) {
+                  spelspeelbaar = 0;
+                  
+                }
+
+               if (eindegoed === true) {
+                  spelspeelbaar = 0;
+                } 
+              }
+
               //--interactie laptop--//
               if (player.x > 596 && player.x < 700 && player.y >= 138 && player.y <=190) {
-                spelspeelbaar = 0;
-                vraagaan = 1;
 
                 //--eerste set vragen--//
-                if (pc1gedaan === false) {
+                if (pc1gedaan === false && pc2gedaan === false) {
+                  spelspeelbaar = 0;
+                  vraagaan = 1;
                   clearQ();
                   drawQ();
                 }
                 //--tweede set vragen--//
-                if (pc1gedaan === true) {
-                  spelspeelbaar = 1;
-                  console.log("eerste set voltooid");
+                if (pc1gedaan === true && pc2gedaan === false) {
+                  clearQ();
+                  spelspeelbaar = 0;
+                  vraagaan = 1;
+                  drawQ7();
                 }
               }  
             }
@@ -307,10 +385,10 @@
         }
 
         if (keys[80]) {
-          //--score toets voor debug doeleinden--//
+          //--toets voor debug doeleinden--//
           if (!keypressed) {
             keypressed = true;
-            console.log("moodindex", score, "eindscore", eindscore);
+            console.log("moodindex", score, "eindscore", eindscore, "vraagnummer", vraagnummer);
           }  
         }
 
@@ -342,17 +420,23 @@
       hintctx.clearRect(0,0,width,height);
       if (spelspeelbaar ===1) {
        if (vraagnummer === 1) {
-          hintctx.drawImage(hint1,0,0,800,600,0,0,800,600);
+        hintctx.drawImage(hint1,0,0,800,600,0,0,800,600);
        }
        if (vraagnummer === 7) {
-          hintctx.drawImage(hint2,0,0,800,600,0,0,800,600);
+        hintctx.drawImage(hint2,0,0,800,600,0,0,800,600);
+       }
+       if (vraagnummer ===9) {
+        hintctx.drawImage(hint3,0,0,800,600,0,0,800,600);
+       }
+       if (vraagnummer >= 13) {
+        hintctx.drawImage(hint4,0,0,800,600,0,0,800,600);
        }
       } 
 
       //--teken speler afhankelijk van score--//
       avctx.clearRect(0,0,width,height);
       //--teken bange speler als score slecht is--//
-      if (score < -4) {
+      if (score <= -4) {
         avctx.drawImage(scaredplayer, player.x, player.y, 139, player.height);
       } 
       //--teken zorgelijke speler als score gemiddeld is--//
@@ -410,13 +494,16 @@
       vrgctx.drawImage(laptopscherm2,0,0,800,600,0,0,800,600);
     }
 
-
     function drawQ3(){
       vrgctx.drawImage(laptopscherm3,0,0,800,600,0,0,800,600);
     }
 
     function drawQ4(){
       vrgctx.drawImage(laptopscherm4,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ4a(){
+      vrgctx.drawImage(laptopscherm4a,0,0,800,600,0,0,800,600);
     }
 
     function drawQ5(){
@@ -427,8 +514,29 @@
       vrgctx.drawImage(laptopscherm6,0,0,800,600,0,0,800,600);
     }
 
+    function drawQ7(){
+      vrgctx.drawImage(laptopscherm7,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ8(){
+      vrgctx.drawImage(laptopscherm8,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ9(){
+      vrgctx.drawImage(laptopscherm9,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ9a(){
+      vrgctx.drawImage(laptopscherm9a,0,0,800,600,0,0,800,600);
+    }
+
+    //--afleidingen tekenen--//
     function drawDist(){
       vrgctx.drawImage(afleiding1,0,0,800,600,0,0,800,600);
+    }
+
+    function drawDist2(){
+      vrgctx.drawImage(afleiding2,0,0,800,600,0,0,800,600);
     }
 
   //--eventlistener koppelen aan toetsen--//
