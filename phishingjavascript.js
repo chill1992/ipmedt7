@@ -43,6 +43,9 @@
     var laptopscherm4a = new Image();
     laptopscherm4a.src = "imagesp/laptopscherm4a.png";
 
+    var laptopscherm4b = new Image();
+    laptopscherm4b.src = "imagesp/laptopscherm4b.png";
+
     var laptopscherm5 = new Image();
     laptopscherm5.src = "imagesp/laptopscherm5.png";
 
@@ -250,7 +253,7 @@
               }
               if (vraagnummer ===10 && eindscore > 0) {
                 clearQ();
-                drawQ4();
+                drawQ4b();
               }
               if (vraagnummer ===10 && eindscore === 0) {
                 clearQ();
@@ -521,6 +524,10 @@
 
     function drawQ4a(){
       vrgctx.drawImage(laptopscherm4a,0,0,800,600,0,0,800,600);
+    }
+
+    function drawQ4b(){
+      vrgctx.drawImage(laptopscherm4b,0,0,800,600,0,0,800,600);
     }
 
     function drawQ5(){
